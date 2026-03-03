@@ -13,7 +13,7 @@ def translate_text(text, target_language):
 
 
 sample_rate = 44100
-api_key = 'qJJe9qkPbJrwXC0KSeZQdjST1mvVIsv7'  # Replace with your actual API key
+api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'  # Replace with your actual API key
 api_url = 'https://api.aiforthai.in.th/vaja'
 
 
