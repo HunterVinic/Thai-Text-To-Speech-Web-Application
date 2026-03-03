@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thai Text-to-Speech Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #e0e5ec;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+            border-radius: 10px;
+            text-align: left;
+
+        }
+
+        form {
+
+            margin-top: 20px;
+
+        }
+
+
+
+        textarea {
+            border-radius: 15px;
+            width: 80%;
+            height: 100px;
+            background-color: #e0e5ec;
+            border: 0px  none;
+            max-height: 500px;
+            max-width: 490px;
+            color: #555555;
+            transition: 0.2s ease-in;
+            transform: scale(1.1);
+            font-size: 1em;
+
+
+        }
+
+        textarea:hover {
+            transition: 0.7s ease-in;
+            background: none repeat scroll 0 0 #e0e5ec;
+            outline-width: 0;
+            box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff,
+		    inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7;
+
+        }
+
+
+       textarea:focus {
+            transition: 0.8s ease-out;
+            background: none repeat scroll 0 0 #e0e5ec;
+            outline-width: 0;
+            box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff,
+		    inset 8px 8px 20px #fff, inset -8px -8px 20px #a9a8b7;
+
+        }
+
+
+
+        .play-btn:hover:before {
+	        box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff,
+		    inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7;
+        }
+        .play-btn {
+            position: relative;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            display: flex;
+            width: 150px;
+            height: 150px;
+            border-radius: 100px ;
+            align-items: center;
+            justify-content: center;
+            border: 0px  none;
+            background-color: #e0e5ec ;
+
+        }
+
+        .play-btn:before {
+            position: absolute;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 150px;
+            height: 150px;
+            content: " ";
+            cursor: pointer;
+            transition: 0.75s ease-out;
+            border-radius: 150px;
+            filter: blur(7px);
+            box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff;
+
+        }
+
+        .play-btn:hover:before {
+            transition: 0.3s ease-in;
+            transform: scale(1.1);
+            filter: blur(7px);
+        }
+
+            .download-button:hover:before {
+        box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff,
+            inset -8px -8px 20px #fff, inset 8px 8px 20px #a9a8b7;
+    }
+
+    .download-button {
+        margin-top: 50px;
+        position: relative;
+        display: flex;
+        width: 400px;
+        height: 90px;
+        border-radius: 100px;
+        align-items: center;
+        justify-content: center;
+        border: 0px none;
+        background-color: #e0e5ec;
+        text-decoration: none; /* Remove underline for the link */
+
+        /* Additional styles you might want to apply */
+        /* Add more styles as needed */
+    }
+
+    .download-button:before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 400px;
+        height: 90px;
+        content: " ";
+        cursor: pointer;
+        transition: 0.75s ease-out;
+        border-radius: 150px;
+        filter: blur(7px);
+        box-shadow: 8px 8px 20px #a9a8b7, -8px -8px 20px #fff;
+    }
+
+    .download-button:hover:before {
+        transition: 0.3s ease-in;
+        transform: scale(1.1);
+        filter: blur(7px);
+    }
+
+    .download-button p {
+        position: relative;
+        z-index: 5;
+        user-select: none;
+        cursor: pointer;
+    }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+        #rangeValue {
+           position: static;
+           display: block;
+           text-align: center;
+           font-size: 1em;
+           color: #999;
+           font-weight: 400;
+        }
+       .slider {
+          position: static;
+          width: 400px;
+          height: 15px;
+          -webkit-appearance: none;
+          background: #e0e5ec;
+          outline: none;
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: inset 0px 0px 5px #c7c9c9;
+        }
+
+       .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: #d5e6ed;
+          cursor: pointer;
+          border: 4px solid #333;
+          box-shadow: -407px 0 0 400px #959fa3;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider {
+            width: 70%;
+        }
+        audio:hover, audio:focus, audio:active {
+            margin-top: 25px;
+            -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+            -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+            box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+            -webkit-transform: scale(1.05);
+            -moz-transform: scale(1.05);
+            transform: scale(1.05);
+            }
+
+        audio {
+            margin-top: 25px;
+            -webkit-transition:all 0.5s linear;
+            -moz-transition:all 0.5s linear;
+            -o-transition:all 0.5s linear;
+            transition:all 0.5s linear;
+            -moz-box-shadow: 2px 2px 4px 0px #006773;
+            -webkit-box-shadow:  2px 2px 4px 0px #006773;
+            box-shadow: 2px 2px 4px 0px #006773;
+            -moz-border-radius:7px 7px 7px 7px ;
+            -webkit-border-radius:7px 7px 7px 7px ;
+            border-radius:7px 7px 7px 7px ;
+        }
+
+        .select {
+            position: relative;
+            display: flex;
+            width: 20em;
+            height: 3em;
+            border-radius: .25em;
+            overflow: hidden;
+        }
+        .download {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+   </style>
+</head>
+<body>
+ <div class="container">
+    <h1>Thai Text-to-Speech Converter</h1>
+    <form id="textToSpeechForm">
+        <textarea id="inputText" rows="4" cols="50" placeholder="Enter text"></textarea>
+        <br>
+        <div class ='download'>
+        <button type="submit" class="play-btn">Convert</button>
+        </div>
+    </form>
+
+    <!-- Audio Player -->
+    <audio controls id="audioPlayer" style="display: none;">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Download Button -->
+     <a id="downloadLink" class="download-button" style="display: none;" download>
+         <p>
+             Download Audio
+         </p>
+     </a>
+
+ </div>
+
+    <script>
+        document.getElementById('textToSpeechForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var inputText = document.getElementById('inputText').value;
+
+            fetch('/convert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Set the audio source to the generated WAV file
+                    var audioPlayer = document.getElementById('audioPlayer');
+                    audioPlayer.src = data.wav_url;
+
+                    // Display the audio player and download link
+                    audioPlayer.style.display = 'block';
+                    var downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = data.wav_url;
+                    downloadLink.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
